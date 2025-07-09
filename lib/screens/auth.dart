@@ -1,5 +1,4 @@
 import 'package:chat_app/widgets/user_image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
   File? _selectedImage;
   var _isAuthenticating = false;
   var _enteredUsername = '';
+  bool _isPasswordVisible = false;
 
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
@@ -46,7 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
         _isAuthenticating = true;
       });
       if (_isLogin) {
-        final userCredentials = await _firebase.signInWithEmailAndPassword(
+        await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail,
           password: _enteredPassword,
         );
@@ -76,9 +76,6 @@ class _AuthScreenState extends State<AuthScreen> {
             });
       }
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'email-already-in-use') {
-        //
-      }
       ScaffoldMessenger.of(context).clearSnackBars;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(error.message ?? 'Authenetication Failed.')),
@@ -98,6 +95,14 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                'Welcome User',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Container(
                 margin: EdgeInsets.only(bottom: 30, left: 20, right: 20),
                 width: 200,
@@ -122,6 +127,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: 'Email Address',
+                              prefixIcon: Icon(Icons.email),
                             ),
                             keyboardType: TextInputType.emailAddress,
                             autocorrect: false,
@@ -142,6 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             TextFormField(
                               decoration: InputDecoration(
                                 labelText: 'Username',
+                                prefixIcon: Icon(Icons.person),
                               ),
                               enableSuggestions: false,
                               validator: (value) {
@@ -157,8 +164,23 @@ class _AuthScreenState extends State<AuthScreen> {
                               },
                             ),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Password'),
-                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                            ),
+                            obscureText: !_isPasswordVisible,
                             validator: (value) {
                               if (value == null || value.trim().length < 6) {
                                 return 'Enter a password of more than 6 characters';

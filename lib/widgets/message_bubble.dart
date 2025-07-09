@@ -52,16 +52,21 @@ class MessageBubble extends StatelessWidget {
             right: isMe ? 0 : null,
             child: CircleAvatar(
               // backgroundImage: NetworkImage(userImage!),
-              backgroundImage:
-                  Image.asset('assets/images/people_logo.png').image,
-              backgroundColor: theme.colorScheme.primary.withAlpha(180),
-              radius: 20,
+              // backgroundImage:
+              //     Image.asset('assets/images/people_logo.png').image,
+              backgroundColor:
+                  isMe
+                      ? Colors.grey[300]
+                      : theme.colorScheme.secondary.withAlpha(200),
+              radius: 15,
+              // backgroundImage: NetworkImage(userImage!),
+              child: Text(username != null ? username![0].toUpperCase() : '?'),
             ),
           ),
         Container(
           // Add some margin to the edges of the messages, to allow space for the
           // user's image.
-          margin: const EdgeInsets.symmetric(horizontal: 46),
+          margin: const EdgeInsets.symmetric(horizontal: 30),
           child: Row(
             // The side of the chat screen the message should show at.
             mainAxisAlignment:
