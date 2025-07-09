@@ -6,6 +6,43 @@ import 'package:flutter/material.dart';
 class ChatMessages extends StatelessWidget {
   const ChatMessages({super.key});
 
+  void _showDeleteDialog(BuildContext context, String messageId) {
+    showDialog(
+      context: context,
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Delete message?'),
+            content: const Text('Do you want to delete this message?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(ctx).pop();
+                  await FirebaseFirestore.instance
+                      .collection('chat')
+                      .doc(messageId)
+                      .delete();
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Message deleted!'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  overlayColor: Theme.of(context).colorScheme.primary,
+                ),
+                child: Text('Delete'),
+              ),
+            ],
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final authenticatedUser = FirebaseAuth.instance.currentUser;
@@ -47,19 +84,30 @@ class ChatMessages extends StatelessWidget {
                 nextChatMessage != null ? nextChatMessage['userId'] : null;
             final nextUserIsSame = nextMessageUserId == currentMessageUserId;
 
-            if (nextUserIsSame) {
-              return MessageBubble.next(
-                message: chatMessage['text'],
-                isMe: authenticatedUser!.uid == currentMessageUserId,
-              );
-            } else {
-              return MessageBubble.first(
-                userImage: 'userImage',
-                username: chatMessage['username'],
-                message: chatMessage['text'],
-                isMe: authenticatedUser!.uid == currentMessageUserId,
-              );
-            }
+            final isMe = authenticatedUser!.uid == currentMessageUserId;
+            final messageId = loadedMessages[index].id;
+
+            return GestureDetector(
+              onLongPress: () {
+                if (isMe) {
+                  _showDeleteDialog(context, messageId);
+                }
+              },
+              child:
+                  nextUserIsSame
+                      ? MessageBubble.next(
+                        key: ValueKey(chatMessage['createdAt']),
+                        message: chatMessage['text'],
+                        isMe: isMe,
+                      )
+                      : MessageBubble.first(
+                        key: ValueKey(chatMessage['createdAt']),
+                        userImage: 'userImage',
+                        username: chatMessage['username'],
+                        message: chatMessage['text'],
+                        isMe: isMe,
+                      ),
+            );
           },
         );
       },
