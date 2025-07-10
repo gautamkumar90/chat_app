@@ -23,8 +23,8 @@ Key Features:
 🔥 Firebase Integration: Connected Firebase services for backendless architecture: user data, chat storage, media uploads.
 
 Impact:<br>
-Improved chat synchronization speed and UI responsiveness.
-Gained hands-on experience with backendless architecture, asynchronous programming, and UI/UX best practices.
+-> Improved chat synchronization speed and UI responsiveness. <br>
+-> Gained hands-on experience with backendless architecture, asynchronous programming, and UI/UX best practices.<br>
 
 Here are some screenshots for the reference :
 
