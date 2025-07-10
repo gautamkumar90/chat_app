@@ -1,16 +1,33 @@
-# chat_app
+# Real Time Chat App
 
-A new Flutter project.
+A real-time Flutter chat application with Firebase integration, supporting user authentication, profile image uploads, group messaging, dark/light themes, and smooth UI transitions.
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
+Tech Stack: Flutter, Dart, Firebase (Auth, Firestore, Storage), Provider (or any state management used)
 
-A few resources to get you started if this is your first Flutter project:
+Key Features:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+🔐 Authentication System: Implemented secure user login and signup with Firebase Authentication.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🖼️ Profile Customization: Integrated image_picker for user profile images, stored in Firebase Storage.
+
+💬 Real-Time Messaging: Enabled instant group chat functionality using Firebase Firestore with live updates.
+
+🌗 Light & Dark Mode Support: Developed dynamic UI adapting to system theme with custom theming for better UX.
+
+📱 Cross-Platform Compatibility: Deployed fully responsive app for both Android and iOS platforms.
+
+🛠️ State Management: Used Provider (or Riverpod, etc.) for efficient UI state handling and reactivity.
+
+🔥 Firebase Integration: Connected Firebase services for backendless architecture: user data, chat storage, media uploads.
+
+Impact:
+
+Improved chat synchronization speed and UI responsiveness.
+
+Gained hands-on experience with backendless architecture, asynchronous programming, and UI/UX best practices.
+
+Here are some screenshots for the reference :
+
+Video Demo : 
