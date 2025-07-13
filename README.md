@@ -28,4 +28,12 @@ Impact:<br>
 
 Here are some screenshots for the reference :
 
-Video Demo : 
+<div style="display: flex; gap: 90px; justify-content: center; flex-wrap: wrap;">
+  <img src="https://github.com/user-attachments/assets/e918353d-d803-43f8-a6b8-0aab384d7125" alt="IMG-1" height="480" />
+  <img src="https://github.com/user-attachments/assets/1d3b3912-8404-4562-9e90-9f561c3a78c1" alt="IMG-2" height="480" />
+  <img src="https://github.com/user-attachments/assets/6a8b608d-4c2a-4a32-bb05-d059824e1f5d" alt="IMG-3" height="480" />
+  <img src="https://github.com/user-attachments/assets/470f3d51-a42f-4d22-8ea1-b6bfe582be89" alt="IMG-4" height="480" />
+</div>
+<br>
+
+Video Demo : https://youtube.com/shorts/bI4b_v7cfxw?feature=share
